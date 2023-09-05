@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'app_course.apps.AppCourseConfig',
     'app_lesson.apps.AppLessonConfig',
     'users.apps.UsersConfig',
+    'app_payment.apps.AppPaymentConfig',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -140,3 +142,10 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'users:login'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

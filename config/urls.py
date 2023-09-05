@@ -23,5 +23,6 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('', include(('app_course.urls', 'app_course'), namespace='app_course')),
                   path('app_lesson/', include(('app_lesson.urls', 'app_lesson'), namespace='app_lesson')),
+                  path('app_payment/', include(('app_payment.urls', 'app_payment'), namespace='app_payment')),
                   path('users/', include(('users.urls', 'users'), namespace='users')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
