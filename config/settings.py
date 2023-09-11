@@ -42,12 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',  # new'
-    'app_course.apps.AppCourseConfig',
-    'app_lesson.apps.AppLessonConfig',
-    'users.apps.UsersConfig',
-    'app_payment.apps.AppPaymentConfig',
+
+    'rest_framework',  # new library
     'django_filters',
+    'rest_framework_simplejwt',
+
+    'app_course.apps.AppCourseConfig',  # new app
+    'app_lesson.apps.AppLessonConfig',
+    'app_payment.apps.AppPaymentConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +152,14 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# Настройки разрешений для rest_framework_simplejwt.
+# IsAuthenticated - авторизованный пользователь.
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}

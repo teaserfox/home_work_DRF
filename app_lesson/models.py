@@ -1,5 +1,6 @@
 from django.db import models
 from app_course.models import Course
+from config import settings
 from users.models import NULLABLE
 
 
@@ -9,6 +10,7 @@ class Lesson(models.Model):
     description = models.TextField(verbose_name='описание')
     preview = models.ImageField(upload_to='lesson/', verbose_name='превью (картинка)', **NULLABLE)
     url = models.URLField(verbose_name='ссылка на видео', **NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)  # Пользователь
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="курс")
 
