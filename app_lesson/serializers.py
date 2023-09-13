@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from app_lesson.models import Lesson
+from app_lesson.validators import LinkToVideoValidator
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -7,3 +8,4 @@ class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = '__all__'
+        validators = [LinkToVideoValidator('link_to_video')]

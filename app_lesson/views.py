@@ -1,5 +1,6 @@
 from rest_framework import generics
 from app_lesson.models import Lesson
+from app_lesson.paginators import LessonPaginator
 from app_lesson.permissions import IsNotModerator, IsOwnerOrModerator, IsOwner
 from app_lesson.serializers import LessonSerializer
 
@@ -25,6 +26,7 @@ class LessonListAPIView(generics.ListAPIView):
     """ Получить список уроков """
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    pagination_class = LessonPaginator
 
 
 class LessonRetrieveAPIView(generics.RetrieveAPIView):

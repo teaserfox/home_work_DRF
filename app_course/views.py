@@ -1,7 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
-from app_course.models import Course
-from app_course.serializers import CourseSerializer
+from app_course.models import Course, Subscription
+from app_course.serializers import CourseSerializer, SubscriptionSerializer
+from app_lesson.paginators import CoursePaginator
 from app_lesson.permissions import IsNotModerator, IsOwnerOrModerator, IsOwner
 
 
@@ -13,6 +14,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     serializer_class = CourseSerializer  # Класс-сериализатор
     queryset = Course.objects.all()
+    pagination_class = CoursePaginator
 
     def perform_create(self, serializer):
         """Переопределение метода perform_create для добавления пользователя"""
@@ -40,3 +42,32 @@ class CourseViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated, IsOwner]
 
         return [permission() for permission in permission_classes]
+
+
+class SubscriptionCreateAPIView(generics.CreateAPIView):
+    """Класс-представление для подписки курс на основе Generics"""
+
+    serializer_class = SubscriptionSerializer  # класс-сериализатор
+
+    def perform_create(self, serializer, **kwargs):
+        """Переопределение метода perform_create для добавления пользователя"""
+        new_subscription = serializer.save()  # создаем новую подписку
+
+        new_subscription.user = self.request.user  # добавляем авторизованного пользователя
+        new_subscription.course = Course.objects.get(id=self.kwargs['pk'])  # добавляем курс
+        new_subscription.save()  # сохраняем новую подписку
+
+
+class SubscriptionDestroyAPIView(generics.DestroyAPIView):
+    """Удаление подписки на курс на основе Generics"""
+
+    queryset = Course.objects.all()  # список уроков
+
+    def perform_destroy(self, instance, **kwargs):
+        """Переопределение метода perform_destroy для удаления подписки на курс"""
+
+        user = self.request.user
+        # получаем подписку
+        subscription = Subscription.objects.get(course_id=self.kwargs['pk'], user=user)
+
+        subscription.delete()  # удаляем подписку
