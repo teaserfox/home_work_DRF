@@ -54,7 +54,7 @@ class LessonTestCase(APITestCase):
             'owner': self.user.pk,
         }
 
-        response = self.client.post(reverse('lms_platform:lesson_create'), data=data)  # Отправка запроса
+        response = self.client.post(reverse('app_lesson:lesson_create'), data=data)  # Отправка запроса
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)  # Проверка статуса ответа
 
@@ -63,7 +63,7 @@ class LessonTestCase(APITestCase):
     def test_list_lessons(self):
         """Тестирование списка уроков"""
 
-        response = self.client.get(reverse('lms_platform:lesson'))  # Запрос на получение списка уроков
+        response = self.client.get(reverse('app_lesson:lesson'))  # Запрос на получение списка уроков
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # Проверка ответа на запрос
 
@@ -92,7 +92,7 @@ class LessonTestCase(APITestCase):
         }
 
         # Запрос на обновление урока
-        response = self.client.put(reverse('lms_platform:lesson_update', args=[self.lesson.pk]), data=data)
+        response = self.client.put(reverse('app_lesson:lesson_update', args=[self.lesson.pk]), data=data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # Проверка статуса ответа
 
@@ -111,7 +111,7 @@ class LessonTestCase(APITestCase):
         """Тестирование получения урока по id"""
 
         # Запрос на получение урока по id
-        response = self.client.get(reverse('lms_platform:lesson_get', args=[self.lesson.pk]))
+        response = self.client.get(reverse('app_lesson:lesson_get', args=[self.lesson.pk]))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # Проверка статуса ответа
 
@@ -130,7 +130,7 @@ class LessonTestCase(APITestCase):
         """Тестирование удаления урока"""
 
         # Запрос на удаление урока
-        response = self.client.delete(reverse('lms_platform:lesson_delete', args=[self.lesson.pk]))
+        response = self.client.delete(reverse('app_lesson:lesson_delete', args=[self.lesson.pk]))
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)  # Проверка статуса ответа
 
