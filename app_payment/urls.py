@@ -5,5 +5,6 @@ from app_payment.views import PaymentListAPIView
 app_name = AppPaymentConfig.name
 
 urlpatterns = [
-    path('payment/', PaymentListAPIView.as_view(), name='payment'),
+    path('', PaymentListAPIView.as_view(), name='payment'),  # app_playment/
+
 ]

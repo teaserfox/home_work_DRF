@@ -1,7 +1,6 @@
 from rest_framework import generics
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import IsAuthenticated
 
 from app_payment.models import Payment
 from app_payment.serializers import PaymentSerializer
@@ -17,4 +16,3 @@ class PaymentListAPIView(generics.ListAPIView):
     ordering_fields = ('payment_date',)  # Поля, по которым можно сортировать
     search_fields = ('course', 'lesson', 'payment_method')  # Поля, по которым можно производить поиск
 
-    permission_classes = [IsAuthenticated]

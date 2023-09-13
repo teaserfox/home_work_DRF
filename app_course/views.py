@@ -21,7 +21,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         new_course.save()
 
     def get_permissions(self):
-        """Переопределение метода get_permissions для назначение разных прав доступа на разные дейтсвия"""
+        """Переопределение метода get_permissions для назначения разных прав доступа на разные дейтсвия"""
 
         # просматривать список уроков и детальную информацию по ним может любой авторизованный пользователь
         if self.action == 'list' or self.action == 'retrieve':
