@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-
 from app_course.models import Course, Subscription
 from app_lesson.models import Lesson
 
 
 class CourseSerializer(serializers.ModelSerializer):
     """Сериализатор для модели курса"""
+
     class Meta:
         model = Course
         fields = '__all__'

@@ -5,6 +5,7 @@ from config import settings
 from users.models import NULLABLE
 
 PAYMENT_METHOD_CHOICES = [('Cash', 'Наличные'), ('money_transfer', 'денежный перевод')]
+PAYMENT_CURRENCY_CHOIСES = [('usd', 'usd'), ('rub', 'rub')]  # Валюта платежей
 
 
 class Payment(models.Model):
@@ -16,6 +17,8 @@ class Payment(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name='Оплаченный урок', on_delete=models.SET_NULL, **NULLABLE)
     payment_amount = models.DecimalField(max_digits=20, decimal_places=3, verbose_name='Сумма оплаты')
     payment_method = models.CharField(choices=PAYMENT_METHOD_CHOICES, verbose_name='Способ оплаты')
+    payment_currency = models.CharField(choices=PAYMENT_CURRENCY_CHOIСES, max_length=255, verbose_name='Валюта',
+                                        default='rub')
 
     def __str__(self):
         return f'{self.user} {self.payment_amount} ({self.payment_method})'

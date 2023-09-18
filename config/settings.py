@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'rest_framework',  # new library
     'django_filters',
+    'drf_yasg',
     'rest_framework_simplejwt',
 
     'app_course.apps.AppCourseConfig',  # new app
@@ -162,3 +163,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
 }
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")

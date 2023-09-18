@@ -3,15 +3,20 @@ from app_course.models import Course
 from config import settings
 from users.models import NULLABLE
 
+PAYMENT_CURRENCY_CHOIСES = [('usd', 'usd'), ('rub', 'rub')]  # Валюта платежей
+
 
 class Lesson(models.Model):
     """"Поля для модели урока, связанный с моделью:'app_course.Course"""
+
     title = models.CharField(max_length=150, verbose_name='название урока')
     description = models.TextField(verbose_name='описание')
     preview = models.ImageField(upload_to='lesson/', verbose_name='превью (картинка)', **NULLABLE)
     url = models.URLField(verbose_name='ссылка на видео', **NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)  # Пользователь
-
+    price = models.DecimalField(max_digits=20, decimal_places=2, verbose_name='Стоимость урока', **NULLABLE)
+    currency = models.CharField(max_length=20, choices=PAYMENT_CURRENCY_CHOIСES, verbose_name='Валюта', default='rub')
+    is_buy = models.BooleanField(default=False)  # Показывает, куплен ли урок текущим пользователем
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="курс")
 
     def __str__(self):
