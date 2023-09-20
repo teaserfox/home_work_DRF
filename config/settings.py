@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'rest_framework_simplejwt',
+    'django_celery_beat',
 
     'app_course.apps.AppCourseConfig',  # new app
     'app_lesson.apps.AppLessonConfig',
@@ -165,3 +166,9 @@ REST_FRAMEWORK = {
 }
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+# Настройки для Celery
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://localhost:6379'  # Например, Redis, который по умолчанию работает на порту 6379
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
