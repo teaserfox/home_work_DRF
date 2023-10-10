@@ -94,6 +94,7 @@ DATABASES = {
         'NAME': 'home_work_drf',
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': 'db',
     }
 }
 
